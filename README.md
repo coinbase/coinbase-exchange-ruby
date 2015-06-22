@@ -15,7 +15,7 @@ require 'coinbase/exchange'
 rest_api = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass)
 while true
   sleep 10
-  rest_api.last_trade("BTC-GBP") do |resp|
+  rest_api.last_trade(product_id: "BTC-GBP") do |resp|
     p "Spot Rate: £ %.2f" % resp.price
   end
 end
@@ -30,7 +30,7 @@ require 'eventmachine'
 rest_api = Coinbase::Exchange::AsyncClient.new(api_key, api_secret, api_pass)
 EM.run {
   EM.add_periodic_timer(10) {
-    rest_api.last_trade("BTC-GBP") do |resp|
+    rest_api.last_trade(product_id: "BTC-GBP") do |resp|
       p "Spot Rate: £ %.2f" % resp.price
     end
   }
