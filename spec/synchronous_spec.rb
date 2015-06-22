@@ -5,7 +5,7 @@ describe Coinbase::Exchange::Client do
     @client = Coinbase::Exchange::Client.new 'api_pass', 'api_key', 'api_secret'
   end
 
-  it "repsonds to all endpoints" do
+  it "responds to all endpoints" do
     endpoints.each do |ref|
       expect(@client).to respond_to(ref)
     end

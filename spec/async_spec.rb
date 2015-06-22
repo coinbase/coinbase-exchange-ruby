@@ -7,7 +7,7 @@ describe Coinbase::Exchange::AsyncClient do
                                                   'api_secret')
   end
 
-  it "makes asyncronous requests" do
+  it "makes asynchronous requests" do
     stub_request(:get, /.*/).to_return(body: mock_collection.to_json)
     success = false
     EM.run do
