@@ -146,7 +146,7 @@ Coinbase supports trading in multiple currencies.  When interacting with market 
 
 ```ruby
 rest_api.last_trade(product_id: 'BTC-GBP') do |resp|
-  p "The spot rate is £ %.2f" resp.price
+  p "The spot rate is £ %.2f" % resp.price
 end
 ```
 
@@ -199,7 +199,7 @@ Downloads information about the last trade, which is exposed through the /ticker
 
 ```ruby
 rest_api.last_trade do |resp|
-  p "The spot rate is $ %.2f" resp.price
+  p "The spot rate is $ %.2f" %  resp.price
 end
 ```
 
