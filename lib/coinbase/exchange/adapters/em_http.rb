@@ -2,7 +2,7 @@ module Coinbase
   module Exchange
     # EM-Http Adapter
     class EMHTTPClient < APIClient
-      def initialize(api_key, api_secret, api_pass, options = {})
+      def initialize(api_key = '', api_secret = '', api_pass = '', options = {})
         super(api_key, api_secret, api_pass, options)
       end
 

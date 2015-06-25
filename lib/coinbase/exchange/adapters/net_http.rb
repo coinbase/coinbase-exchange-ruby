@@ -2,7 +2,7 @@ module Coinbase
   module Exchange
     # Net-HTTP adapter
     class NetHTTPClient < APIClient
-      def initialize(api_key, api_secret, api_pass, options = {})
+      def initialize(api_key = '', api_secret = '', api_pass = '', options = {})
         super(api_key, api_secret, api_pass, options)
         @conn = Net::HTTP.new(@api_uri.host, @api_uri.port)
         @conn.use_ssl = true
