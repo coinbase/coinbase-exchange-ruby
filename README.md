@@ -7,7 +7,7 @@ We provide an exchange client that is a thin wrapper over the exchange API.  The
 
 We provide a synchronous and asynchronous client.  The only functional difference between the two clients is that the asynchronous client must be started inside the Eventmachine reactor loop.
 
-**Sychronous Client**
+**Synchronous Client**
 
 ```ruby
 require 'coinbase/exchange'
@@ -15,7 +15,7 @@ require 'coinbase/exchange'
 rest_api = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass)
 while true
   sleep 10
-  rest_api.last_trade("BTC-GBP") do |resp|
+  rest_api.last_trade(product_id: "BTC-GBP") do |resp|
     p "Spot Rate: £ %.2f" % resp.price
   end
 end
@@ -30,7 +30,7 @@ require 'eventmachine'
 rest_api = Coinbase::Exchange::AsyncClient.new(api_key, api_secret, api_pass)
 EM.run {
   EM.add_periodic_timer(10) {
-    rest_api.last_trade("BTC-GBP") do |resp|
+    rest_api.last_trade(product_id: "BTC-GBP") do |resp|
       p "Spot Rate: £ %.2f" % resp.price
     end
   }
@@ -146,7 +146,7 @@ Coinbase supports trading in multiple currencies.  When interacting with market 
 
 ```ruby
 rest_api.last_trade(product_id: 'BTC-GBP') do |resp|
-  p "The spot rate is £ %.2f" resp.price
+  p "The spot rate is £ %.2f" % resp.price
 end
 ```
 
@@ -199,7 +199,7 @@ Downloads information about the last trade, which is exposed through the /ticker
 
 ```ruby
 rest_api.last_trade do |resp|
-  p "The spot rate is $ %.2f" resp.price
+  p "The spot rate is $ %.2f" %  resp.price
 end
 ```
 
