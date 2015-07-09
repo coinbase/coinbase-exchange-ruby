@@ -1,5 +1,7 @@
 require 'bundler/setup'
 require 'webmock/rspec'
+require 'em-http'
+
 Bundler.setup
 
 require 'coinbase/exchange'
