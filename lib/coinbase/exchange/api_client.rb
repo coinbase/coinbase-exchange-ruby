@@ -20,45 +20,60 @@ module Coinbase
       # Market Data
       #
       def currencies(params = {})
+        out = nil
         get("/currencies", params) do |resp|
           out = response_collection(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def products(params = {})
+        out = nil
         get("/products", params) do |resp|
           out = response_collection(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def orderbook(params = {})
         product = params[:product_id] || @default_product
+        
+        out = nil
         get("/products/#{product}/book", params) do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def last_trade(params = {})
         product = params[:product_id] || @default_product
+        
+        out = nil
         get("/products/#{product}/ticker", params) do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def trade_history(params = {})
         product = params[:product_id] || @default_product
+        
+        out = nil
         get("/products/#{product}/trades", params, paginate: true) do |resp|
           out = response_collection(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def price_history(params = {})
         product = params[:product_id] || @default_product
+        
+        out = nil
         get("/products/#{product}/candles", params) do |resp|
           out = response_collection(
             resp.map do |item|
@@ -71,48 +86,60 @@ module Coinbase
               }
             end
           )
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def daily_stats(params = {})
         product = params[:product_id] || @default_product
+        
+        out = nil
         get("/products/#{product}/stats", params) do |resp|
           resp["start"] = (Time.now - 24 * 60 * 60).to_s
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       #
       # Accounts
       #
       def accounts(params = {})
+        out = nil
         get("/accounts", params) do |resp|
           out = response_collection(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def account(id, params = {})
+        out = nil
         get("/accounts/#{id}", params) do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def account_history(id, params = {})
+        out = nil
         get("/accounts/#{id}/ledger", params, paginate: true) do |resp|
           out = response_collection(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def account_holds(id, params = {})
+        out = nil
         get("/accounts/#{id}/holds", params, paginate: true) do |resp|
           out = response_collection(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       #
@@ -123,10 +150,13 @@ module Coinbase
         params[:size] = amt
         params[:price] = price
         params[:side] = "buy"
+        
+        out = nil
         post("/orders", params) do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
       alias_method :buy, :bid
 
@@ -135,40 +165,52 @@ module Coinbase
         params[:size] = amt
         params[:price] = price
         params[:side] = "sell"
+
+        out = nil
         post("/orders", params) do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
       alias_method :sell, :ask
 
       def cancel(id)
+        out = nil
         delete("/orders/#{id}") do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def orders(params = {})
         params[:status] ||= "all"
+        
+        out = nil
         get("/orders", params, paginate: true) do |resp|
           out = response_collection(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def order(id, params = {})
+        out = nil
         get("/orders/#{id}", params) do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def fills(params = {})
+        out = nil
         get("/fills", params, paginate: true) do |resp|
           out = response_collection(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       #
@@ -178,20 +220,26 @@ module Coinbase
         params[:type] = "deposit"
         params[:coinbase_account_id] = account_id
         params[:amount] = amt
+        
+        out = nil
         post("/transfers", params) do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       def withdraw(account_id, amt, params = {})
         params[:type] = "withdraw"
         params[:coinbase_account_id] = account_id
         params[:amount] = amt
+
+        out = nil
         post("/transfers", params) do |resp|
           out = response_object(resp)
-          yield(out) if block_given?
+          yield(out, resp) if block_given?
         end
+        out
       end
 
       private
@@ -284,6 +332,27 @@ module Coinbase
 
       def http_verb(_method, _path, _body)
         fail NotImplementedError
+      end
+
+      def self.whitelisted_certificates
+        path = File.expand_path(File.join(File.dirname(__FILE__), 'ca-coinbase.crt'))
+
+        certs = [ [] ]
+        File.readlines(path).each do |line|
+          next if ["\n","#"].include?(line[0])
+          certs.last << line
+          certs << [] if line == "-----END CERTIFICATE-----\n"
+        end
+
+        result = OpenSSL::X509::Store.new
+
+        certs.each do |lines|
+          next if lines.empty?
+          cert = OpenSSL::X509::Certificate.new(lines.join)
+          result.add_cert(cert)
+        end
+
+        result
       end
     end
   end

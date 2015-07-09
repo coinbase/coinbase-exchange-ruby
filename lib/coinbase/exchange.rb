@@ -2,7 +2,6 @@ require "bigdecimal"
 require "json"
 require "uri"
 require "net/http"
-require "em-http"
 require "faye/websocket"
 
 require "coinbase/exchange/errors"

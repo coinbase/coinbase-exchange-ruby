@@ -1,9 +1,8 @@
 PATH
   remote: .
   specs:
-    coinbase-exchange (0.1.1)
+    coinbase-exchange (0.1.2)
       bigdecimal
-      em-http-request
       faye-websocket
 
 GEM
@@ -63,6 +62,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.8)
   coinbase-exchange!
+  em-http-request
   pry
   rake (~> 10.0)
   rspec
