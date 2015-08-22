@@ -246,7 +246,7 @@ module Coinbase
 
       def response_collection(resp)
         out = resp.map { |item| APIObject.new(item) }
-        out.instance_eval { @response = resp.response }
+        out.instance_eval { @response = resp }
         add_metadata(out)
         out
       end
