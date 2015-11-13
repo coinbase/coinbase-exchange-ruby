@@ -416,7 +416,7 @@ require 'eventmachine'
 
 websocket = Coinbase::Exchange::Websocket.new(product_id: 'BTC-GBP',
                                               keepalive: true)
-websocket.match do |data|
+websocket.match do |resp|
   p "Spot Rate: £ %.2f" % resp.price
 end
 
@@ -439,7 +439,7 @@ If started outside the reactor loop, the websocket client will use a very basic 
 require 'coinbase/exchange'
 
 websocket = Coinbase::Exchange::Websocket.new(product_id: 'BTC-GBP')
-websocket.on_match do |data|
+websocket.match do |resp|
   p "Spot Rate: £ %.2f" % resp.price
 end
 websocket.start!
