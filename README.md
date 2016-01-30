@@ -54,7 +54,7 @@ rest_api = Coinbase::Exchange::AsyncClient.new(api_key, api_secret, api_pass)
 
 **Default Product**
 
-Coinbase supports trading bitcoin in several currencies.  If you wish to trade a different currency, you can specify an alterative default currency.
+Coinbase supports trading bitcoin in several currencies.  If you wish to trade a different currency, you can specify an alternative default currency.
 
 ```ruby
 gbp_client = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass,
@@ -100,9 +100,9 @@ end
 
 ### Return Values
 
-Data format is a sensitive issue when writing financial software.  The exchange API represents monetary data in string format.  This is a good intermediary data format for the user to apply their own data format, but is not escpecially useful on its own.
+Data format is a sensitive issue when writing financial software.  The exchange API represents monetary data in string format.  This is a good intermediary data format for the user to apply their own data format, but is not especially useful on its own.
 
-For representing monetary data in ruby, we recomend using the [BigDecimal] (http://ruby-doc.org/stdlib-2.1.1/libdoc/bigdecimal/rdoc/BigDecimal.html) library.  If you access data by calling response items as though they were methods on the response itself.  If you access data this way, any numerical data will be converted to BigDecimal format.
+For representing monetary data in ruby, we recommend using the [BigDecimal] (http://ruby-doc.org/stdlib-2.1.1/libdoc/bigdecimal/rdoc/BigDecimal.html) library.  If you access data by calling response items as though they were methods on the response itself.  If you access data this way, any numerical data will be converted to BigDecimal format.
 
 ```ruby
 rest_api.orders(before: Time.now - 60*60) do |resp|
@@ -209,7 +209,7 @@ Downloads recent trades.  Please be aware that if you don't explicitly pass a be
 
 ```ruby
 rest_api.trade_history(before: Time.now - 10*60) do |resp|
-  p "#{resp.count} trades have occured in the past 10 minutes."
+  p "#{resp.count} trades have occurred in the past 10 minutes."
 end
 ```
 
@@ -260,7 +260,7 @@ end
 
 **account_history**
 
-Downloads a ledger of transfers, matches, and fees associated with an account.  You must pass the account id as the first paramter.
+Downloads a ledger of transfers, matches, and fees associated with an account.  You must pass the account id as the first parameter.
 
 ```ruby
 rest_api.account_history(account_id) do |resp|
@@ -332,7 +332,7 @@ end
 
 **orders**
 
-Downloads a list of all you're orders.  Most likely, you only care about your open orders when using this.
+Downloads a list of all your orders.  Most likely, you'll only care about your open orders when using this.
 
 ```ruby
 rest_api.orders(status: open) do |resp|
@@ -400,7 +400,7 @@ We recommend reading the official websocket documentation before proceeding.
 
 * https://docs.exchange.coinbase.com/#websocket-feed
 
-We provide a websocket interface in the gem for convenience.  This is typically used to build a real-time orderbook, although it can also be used for simpler purposes such as tracking the market rate, or tracking when your orders fill.  Like the asynchronous client, this depends Eventmachine for asycnhronous processing.
+We provide a websocket interface in the gem for convenience.  This is typically used to build a real-time orderbook, although it can also be used for simpler purposes such as tracking the market rate, or tracking when your orders fill.  Like the asynchronous client, this depends Eventmachine for asynchronous processing.
 
 Please consider setting the keepalive flag to true when initializing the websocket.  This will cause the websocket to proactively refresh the connection whenever it closes.
 
