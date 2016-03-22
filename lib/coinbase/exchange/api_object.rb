@@ -16,7 +16,7 @@ module Coinbase
         return if var.nil?
         # Looks like a number or currency
         if var =~ /^.{0,1}\s*[0-9,]*\.{0,1}[0-9]*$/
-          BigDecimal(var.gsub(/[^0-9\.]/, ''))
+          BigDecimal(var.gsub(/[^0-9\.\-]/, ''))
         else
           var
         end
