@@ -92,7 +92,7 @@ p "Spot Rate: $ %.2f" % BigDecimal(resp['price'])
 The gem will automatically encode any additional parameters you pass to method calls.  For instance to get the full orderbook, you must explicitly set the level parameter to 3.
 
 ```ruby
-rest_api.orderbook('BTC-GBP', level: 3) do |resp|
+rest_api.orderbook(level: 3) do |resp|
   p "There are #{resp['bids'].count} open bids on the orderbook"
   p "There are #{resp['asks'].count} open asks on the orderbook"
 end
