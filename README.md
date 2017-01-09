@@ -3,7 +3,7 @@
 ## REST Client
 
 We provide an exchange client that is a thin wrapper over the exchange API.  The purpose of this Readme is to provide context for using the gem effectively.  For a detailed overview of the information that's available through the API, we recommend consulting the official documentation.
-* https://docs.exchange.coinbase.com/#api
+* https://docs.gdax.com/#api
 
 We provide a synchronous and asynchronous client.  The only functional difference between the two clients is that the asynchronous client must be started inside the Eventmachine reactor loop.
 
@@ -42,7 +42,7 @@ EM.run {
 ### Initialization
 
 To initialize the client, simply pass in an API Key, API Secret, and API Passphrase which you generate on the web interface:
-* https://exchange.coinbase.com/settings
+* https://gdax.com/settings
 
 ```ruby
 rest_api = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass)
@@ -67,7 +67,7 @@ You can initialize a connection to the sandbox by specifying an alternative api 
 
 ```ruby
 sandbox = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass,
-                                          api_url: "https://api-public.sandbox.exchange.coinbase.com")
+                                          api_url: "https://api-public.sandbox.gdax.com")
 ```
 
 ### Methods
@@ -140,7 +140,7 @@ end
 
 ## Endpoints
 
-### [Market Data] (https://docs.exchange.coinbase.com/#market-data)
+### [Market Data] (https://docs.gdax.com/#market-data)
 
 Coinbase supports trading in multiple currencies.  When interacting with market data, you can get information about a product other than your default by setting the product_id parameter.
 
@@ -234,7 +234,7 @@ rest_api.daily_stats do |resp|
 end
 ```
 
-### [Accounts] (https://docs.exchange.coinbase.com/#accounts)
+### [Accounts] (https://docs.gdax.com/#accounts)
 
 **accounts**
 
@@ -278,7 +278,7 @@ rest_api.account_holds(account_id) do |resp|
 end
 ```
 
-### [Orders] (https://docs.exchange.coinbase.com/#orders)
+### [Orders] (https://docs.gdax.com/#orders)
 
 **bid**
 
@@ -360,7 +360,7 @@ rest_api.fills do |resp|
 end
 ```
 
-### [Transfers] (https://docs.exchange.coinbase.com/#transfer-funds)
+### [Transfers] (https://docs.gdax.com/#transfer-funds)
 
 **deposit**
 
@@ -398,7 +398,7 @@ end
 
 We recommend reading the official websocket documentation before proceeding.
 
-* https://docs.exchange.coinbase.com/#websocket-feed
+* https://docs.gdax.com/#websocket-feed
 
 We provide a websocket interface in the gem for convenience.  This is typically used to build a real-time orderbook, although it can also be used for simpler purposes such as tracking the market rate, or tracking when your orders fill.  Like the asynchronous client, this depends Eventmachine for asynchronous processing.
 
