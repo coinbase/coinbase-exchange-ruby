@@ -1,4 +1,4 @@
-# Coinbase Exchange Gem
+# GDAX Ruby library
 
 ## REST Client
 
@@ -54,7 +54,7 @@ rest_api = Coinbase::Exchange::AsyncClient.new(api_key, api_secret, api_pass)
 
 **Default Product**
 
-Coinbase supports trading bitcoin in several currencies.  If you wish to trade a different currency, you can specify an alternative default currency.
+GDAX supports trading bitcoin in several currencies.  If you wish to trade a different currency, you can specify an alternative default currency.
 
 ```ruby
 gbp_client = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass,
