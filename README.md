@@ -10,7 +10,7 @@ We provide a synchronous and asynchronous client.  The only functional differenc
 **Synchronous Client**
 
 ```ruby
-require 'coinbase/exchange'
+require 'coinbase-exchange'
 
 rest_api = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass)
 while true
@@ -24,7 +24,7 @@ end
 **Asynchronous Client**
 
 ```ruby
-require 'coinbase/exchange'
+require 'coinbase-exchange'
 require 'eventmachine'
 
 rest_api = Coinbase::Exchange::AsyncClient.new(api_key, api_secret, api_pass)
@@ -411,7 +411,7 @@ websocket = Coinbase::Exchange::Websocket.new(keepalive: true)
 Before starting the websocket, you should hook into whatever messages you're interested in by passing a block to the corresponding method.  The methods you can use for access are open, match, change, done, and error.  Additionally, you can use message to run a block on every websocket event.
 
 ```ruby
-require 'coinbase/exchange'
+require 'coinbase-exchange'
 require 'eventmachine'
 
 websocket = Coinbase::Exchange::Websocket.new(product_id: 'BTC-GBP',
@@ -436,7 +436,7 @@ end
 If started outside the reactor loop, the websocket client will use a very basic Eventmachine handler.
 
 ```ruby
-require 'coinbase/exchange'
+require 'coinbase-exchange'
 
 websocket = Coinbase::Exchange::Websocket.new(product_id: 'BTC-GBP')
 websocket.match do |resp|
