@@ -39,7 +39,7 @@ module Coinbase
 
       def orderbook(params = {})
         product = params[:product_id] || @default_product
-        
+
         out = nil
         get("/products/#{product}/book", params) do |resp|
           out = response_object(resp)
@@ -50,7 +50,7 @@ module Coinbase
 
       def last_trade(params = {})
         product = params[:product_id] || @default_product
-        
+
         out = nil
         get("/products/#{product}/ticker", params) do |resp|
           out = response_object(resp)
@@ -61,7 +61,7 @@ module Coinbase
 
       def trade_history(params = {})
         product = params[:product_id] || @default_product
-        
+
         out = nil
         get("/products/#{product}/trades", params, paginate: true) do |resp|
           out = response_collection(resp)
@@ -72,7 +72,7 @@ module Coinbase
 
       def price_history(params = {})
         product = params[:product_id] || @default_product
-        
+
         out = nil
         get("/products/#{product}/candles", params) do |resp|
           out = response_collection(
@@ -93,7 +93,7 @@ module Coinbase
 
       def daily_stats(params = {})
         product = params[:product_id] || @default_product
-        
+
         out = nil
         get("/products/#{product}/stats", params) do |resp|
           resp["start"] = (Time.now - 24 * 60 * 60).to_s
@@ -150,7 +150,7 @@ module Coinbase
         params[:size] = amt
         params[:price] = price
         params[:side] = "buy"
-        
+
         out = nil
         post("/orders", params) do |resp|
           out = response_object(resp)
@@ -186,7 +186,7 @@ module Coinbase
 
       def orders(params = {})
         params[:status] ||= "all"
-        
+
         out = nil
         get("/orders", params, paginate: true) do |resp|
           out = response_collection(resp)
@@ -220,7 +220,7 @@ module Coinbase
         params[:type] = "deposit"
         params[:coinbase_account_id] = account_id
         params[:amount] = amt
-        
+
         out = nil
         post("/transfers", params) do |resp|
           out = response_object(resp)
@@ -339,7 +339,7 @@ module Coinbase
 
         certs = [ [] ]
         File.readlines(path).each do |line|
-          next if ["\n","#"].include?(line[0])
+          next if ["\n", "#"].include?(line[0])
           certs.last << line
           certs << [] if line == "-----END CERTIFICATE-----\n"
         end

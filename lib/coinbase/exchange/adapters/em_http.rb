@@ -32,8 +32,8 @@ module Coinbase
           # NOTE: This is documented but not implemented in em-http-request
           #       https://github.com/igrigorik/em-http-request/issues/182
           #       https://github.com/igrigorik/em-http-request/pull/179
-          ssl_opts =  { cert_chain_file: File.expand_path(File.join(File.dirname(__FILE__), 'ca-coinbase.crt')),
-                        verify_peer: true }
+          ssl_opts = { cert_chain_file: File.expand_path(File.join(File.dirname(__FILE__), 'ca-coinbase.crt')),
+                       verify_peer: true }
 
           case method
           when 'GET'
