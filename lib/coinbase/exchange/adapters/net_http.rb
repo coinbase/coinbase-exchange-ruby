@@ -54,7 +54,7 @@ module Coinbase
 
       def headers
         out = @response.to_hash.map do |key, val|
-          [ key.upcase.gsub('_', '-'), val.count == 1 ? val.first : val ]
+          [ key.upcase.tr('_', '-'), val.count == 1 ? val.first : val ]
         end
         out.to_h
       end

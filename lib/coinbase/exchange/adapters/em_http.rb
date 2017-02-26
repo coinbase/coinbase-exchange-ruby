@@ -70,7 +70,7 @@ module Coinbase
 
       def headers
         out = @response.response_header.map do |key, val|
-          [ key.upcase.gsub('_', '-'), val ]
+          [ key.upcase.tr('_', '-'), val ]
         end
         out.to_h
       end
