@@ -61,15 +61,6 @@ gbp_client = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass,
                                             product_id: "BTC-GBP")
 ```
 
-**Sandbox**
-
-You can initialize a connection to the sandbox by specifying an alternative api endpoint.
-
-```ruby
-sandbox = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass,
-                                          api_url: "https://api-public.sandbox.gdax.com")
-```
-
 ### Methods
 
 The default representation of return data is an unmodified hash from the JSON blob returned in the body of the API response.  The response should be accessed in a block like this.
