@@ -384,12 +384,12 @@ end
 
 ### Other
 
-**server_time**
+**server_epoch**
 
 Download the server time.
 
 ```ruby
-rest_api.server_time do |resp|
+rest_api.server_epoch do |resp|
   p "The time on the server is #{resp}"
 end
 ```
