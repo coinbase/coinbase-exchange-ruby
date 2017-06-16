@@ -278,6 +278,16 @@ rest_api.account_holds(account_id) do |resp|
 end
 ```
 
+**position**
+
+An overview of your profile.
+
+```ruby
+rest_api.position() do |resp|
+  p resp
+end
+```
+
 ### [Orders] (https://docs.gdax.com/#orders)
 
 **bid**

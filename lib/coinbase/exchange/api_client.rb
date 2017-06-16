@@ -142,6 +142,15 @@ module Coinbase
         out
       end
 
+      def position(params = {})
+        out = nil
+        get("/position", params,) do |resp|
+          out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
       #
       # Orders
       #

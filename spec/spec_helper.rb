@@ -17,7 +17,8 @@ MARKET_REFS   = [ :currencies,
 ACCOUNT_REFS  = [ :accounts,
                   :account,
                   :account_history,
-                  :account_holds ]
+                  :account_holds,
+                  :position ]
 
 ORDER_REFS    = [ :bid,
                   :ask,

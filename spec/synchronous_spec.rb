@@ -181,4 +181,13 @@ describe Coinbase::Exchange::Client do
       expect(out['status']).to eq('OK')
     end
   end
+
+  it "gets position" do
+    stub_request(:get, /position/)
+        .to_return(body: mock_item.to_json)
+    @client.position do |out|
+      expect(out.class).to eq(Coinbase::Exchange::APIObject)
+      expect(out).to eq(mock_item)
+    end
+  end
 end
