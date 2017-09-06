@@ -30,7 +30,7 @@ module Coinbase
         if @reactor_owner == true
           @socket.onclose = ->(_event) { EM.stop }
         else
-          @socket.onclose = ->(_event) {  nil }
+          @socket.onclose = ->(_event) { nil }
         end
         @socket.close
       end
