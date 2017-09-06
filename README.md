@@ -39,6 +39,12 @@ EM.run {
 
 ## Usage
 
+### Installation
+
+```
+$ gem install coinbase-exchange
+```
+
 ### Initialization
 
 To initialize the client, simply pass in an API Key, API Secret, and API Passphrase which you generate on the web interface:
