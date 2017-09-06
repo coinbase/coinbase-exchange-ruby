@@ -341,7 +341,7 @@ end
 Downloads a list of all your orders.  Most likely, you'll only care about your open orders when using this.
 
 ```ruby
-rest_api.orders(status: open) do |resp|
+rest_api.orders(status: "open") do |resp|
   p "You have #{resp.count} open orders."
 end
 ```
