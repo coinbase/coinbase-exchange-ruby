@@ -1,5 +1,8 @@
 # GDAX Ruby library
 
+__Note:__ This library isn't actively maintained.
+Please refer to the [Node.js client library](https://github.com/coinbase/gdax-node) for an up-to-date client implementation.
+
 ## REST Client
 
 We provide an exchange client that is a thin wrapper over the exchange API.  The purpose of this Readme is to provide context for using the gem effectively.  For a detailed overview of the information that's available through the API, we recommend consulting the official documentation.
