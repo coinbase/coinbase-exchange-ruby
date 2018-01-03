@@ -27,7 +27,8 @@ ORDER_REFS    = [ :bid,
                   :fills ]
 
 TRANSFER_REFS = [ :deposit,
-                  :withdraw ]
+                  :withdraw,
+                  :crypto_withdrawal ]
 
 def endpoints
   (MARKET_REFS << ACCOUNT_REFS << ORDER_REFS << TRANSFER_REFS).flatten!

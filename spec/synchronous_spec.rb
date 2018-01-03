@@ -181,4 +181,15 @@ describe Coinbase::Exchange::Client do
       expect(out['status']).to eq('OK')
     end
   end
+
+  it "makes a withdrawal to a crypto address" do
+    crypto_address = SecureRandom.uuid
+    stub_request(:post, /withdrawals.crypto/)
+      .with(body: {amount: 1.5, currency: 'BTC', crypto_address: crypto_address})
+      .to_return(body: mock_item.to_json)
+    @client.crypto_withdrawal(1.5, 'BTC', crypto_address) do |out|
+      expect(out.class).to eq(Coinbase::Exchange::APIObject)
+      expect(out['status']).to eq('OK')
+    end
+  end
 end

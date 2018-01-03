@@ -242,6 +242,19 @@ module Coinbase
         out
       end
 
+      def crypto_withdrawal(amount, currency, crypto_address, params = {})
+        params[:amount] = amount
+        params[:currency] = currency
+        params[:crypto_address] = crypto_address
+
+        out = nil
+        post("/withdrawals/crypto", params) do |resp|
+          out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
       private
 
       def response_collection(resp)
