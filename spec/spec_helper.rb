@@ -17,7 +17,9 @@ MARKET_REFS   = [ :currencies,
 ACCOUNT_REFS  = [ :accounts,
                   :account,
                   :account_history,
-                  :account_holds ]
+                  :account_holds,
+                  :payment_methods,
+                  :coinbase_accounts ]
 
 ORDER_REFS    = [ :bid,
                   :ask,
@@ -28,6 +30,8 @@ ORDER_REFS    = [ :bid,
 
 TRANSFER_REFS = [ :deposit,
                   :withdraw,
+                  :payment_method_withdrawal,
+                  :coinbase_withdrawal,
                   :crypto_withdrawal ]
 
 def endpoints
