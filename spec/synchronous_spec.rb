@@ -215,5 +215,24 @@ describe Coinbase::Exchange::Client do
     end
   end
 
+  it "gets payment methods" do
+    stub_request(:get, /payment-methods/).to_return(body: mock_collection.to_json)
+    @client.payment_methods do |out|
+      out.each do |item|
+        expect(item.class).to eq(Coinbase::Exchange::APIObject)
+        expect(item['status']).to eq('OK')
+      end
+    end
+  end
+
+  it "gets Coinbase accounts" do
+    stub_request(:get, /coinbase-accounts/).to_return(body: mock_collection.to_json)
+    @client.coinbase_accounts do |out|
+      out.each do |item|
+        expect(item.class).to eq(Coinbase::Exchange::APIObject)
+        expect(item['status']).to eq('OK')
+      end
+    end
+  end
 
 end

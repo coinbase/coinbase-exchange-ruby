@@ -285,6 +285,30 @@ module Coinbase
         out
       end
 
+      #
+      # Payment Methods
+      #
+      def payment_methods(params = {})
+        out = nil
+        get("/payment-methods", params, paginate: true) do |resp|
+          out = response_collection(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
+      #
+      # Coinbase Accounts
+      #
+      def coinbase_accounts(params = {})
+        out = nil
+        get("/coinbase-accounts", params, paginate: true) do |resp|
+          out = response_collection(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
       private
 
       def response_collection(resp)
