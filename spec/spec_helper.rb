@@ -28,6 +28,8 @@ ORDER_REFS    = [ :bid,
 
 TRANSFER_REFS = [ :deposit,
                   :withdraw,
+                  :payment_method_withdrawal,
+                  :coinbase_withdrawal,
                   :crypto_withdrawal ]
 
 def endpoints

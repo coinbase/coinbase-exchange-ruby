@@ -182,6 +182,28 @@ describe Coinbase::Exchange::Client do
     end
   end
 
+  it "makes a withdrawal to a payment method" do
+    payment_method_id = SecureRandom.uuid
+    stub_request(:post, /withdrawals.payment-method/)
+      .with(body: {amount: 1.5, currency: 'BTC', payment_method_id: payment_method_id})
+      .to_return(body: mock_item.to_json)
+    @client.payment_method_withdrawal(1.5, 'BTC', payment_method_id) do |out|
+      expect(out.class).to eq(Coinbase::Exchange::APIObject)
+      expect(out['status']).to eq('OK')
+    end
+  end
+
+  it "makes a withdrawal to a Coinbase account" do
+    coinbase_account_id = SecureRandom.uuid
+    stub_request(:post, /withdrawals.coinbase-account/)
+      .with(body: {amount: 1.5, currency: 'BTC', coinbase_account_id: coinbase_account_id})
+      .to_return(body: mock_item.to_json)
+    @client.coinbase_withdrawal(1.5, 'BTC', coinbase_account_id) do |out|
+      expect(out.class).to eq(Coinbase::Exchange::APIObject)
+      expect(out['status']).to eq('OK')
+    end
+  end
+
   it "makes a withdrawal to a crypto address" do
     crypto_address = SecureRandom.uuid
     stub_request(:post, /withdrawals.crypto/)
@@ -192,4 +214,6 @@ describe Coinbase::Exchange::Client do
       expect(out['status']).to eq('OK')
     end
   end
+
+
 end
