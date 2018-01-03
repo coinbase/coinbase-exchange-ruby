@@ -391,6 +391,16 @@ rest_api.withdraw(wallet_id, 10) do |resp|
 end
 ```
 
+**crypto_withdrawal**
+
+Withdraw money to a crypto address
+
+```ruby
+rest_api.crypto_withdrawal(10, 'BTC', 'a365117a-8e67-4de2-9655-21ec5cf2211e') do |resp|
+  p "Withdrew 10 BTC to BTC wallet with address a365117a-8e67-4de2-9655-21ec5cf2211e"
+end
+```
+
 ### Other
 
 **server_time**
