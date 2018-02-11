@@ -252,12 +252,12 @@ module Coinbase
         puts params
         puts params[:crypto_address]
 
-        # out = nil
-        # post("/withdrawals/crypto", params) do |resp|
-        #   out = response_object(resp)
-        #   yield(out, resp) if block_given?
-        # end
-        # out
+        out = nil
+        post("/withdrawals/crypto", params) do |resp|
+          out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
       end
 
       private
