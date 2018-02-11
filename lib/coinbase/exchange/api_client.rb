@@ -245,7 +245,7 @@ module Coinbase
       # for cryptos
       def withdraw_crypto(amount,currency,crypto_address)
         params = {}
-        params[:amount] = amount.to_f
+        params[:amount] = amount
         params[:currency] = currency
         params[:crypto_address] = crypto_address
 
