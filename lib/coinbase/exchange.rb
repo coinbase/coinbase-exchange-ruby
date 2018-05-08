@@ -1,4 +1,3 @@
-require "bigdecimal"
 require "json"
 require "uri"
 require "net/http"
