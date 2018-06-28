@@ -1,12 +1,9 @@
 # GDAX Ruby library
 
-__Note:__ This library isn't actively maintained.
-Please refer to the [Node.js client library](https://github.com/coinbase/gdax-node) for an up-to-date client implementation.
-
 ## REST Client
 
 We provide an exchange client that is a thin wrapper over the exchange API.  The purpose of this Readme is to provide context for using the gem effectively.  For a detailed overview of the information that's available through the API, we recommend consulting the official documentation.
-* https://docs.gdax.com/#api
+* https://developers.coinbase.com/api/v2
 
 We provide a synchronous and asynchronous client.  The only functional difference between the two clients is that the asynchronous client must be started inside the Eventmachine reactor loop.
 
@@ -388,6 +385,16 @@ Withdraw money for your Coinbase wallet.
 ```ruby
 rest_api.withdraw(wallet_id, 10) do |resp|
   p "Withdrew 10 BTC"
+end
+```
+
+**crypto_withdrawal**
+
+Withdraw money to a crypto address
+
+```ruby
+rest_api.crypto_withdrawal(10, 'BTC', 'a365117a-8e67-4de2-9655-21ec5cf2211e') do |resp|
+  p "Withdrew 10 BTC to BTC wallet with address a365117a-8e67-4de2-9655-21ec5cf2211e"
 end
 ```
 

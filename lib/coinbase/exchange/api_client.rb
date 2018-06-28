@@ -3,7 +3,7 @@ module Coinbase
     # Net-http client for Coinbase Exchange API
     class APIClient
       def initialize(api_key = '', api_secret = '', api_pass = '', options = {})
-        @api_uri = URI.parse(options[:api_url] || "https://api.gdax.com")
+        @api_uri = URI.parse(options[:api_url] || "https://api.pro.coinbase.com")
         @api_pass = api_pass
         @api_key = api_key
         @api_secret = api_secret
@@ -237,6 +237,73 @@ module Coinbase
         out = nil
         post("/transfers", params) do |resp|
           out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
+      #
+      # Withdrawals
+      #
+
+      def payment_method_withdrawal(amount, currency, payment_method_id, params = {})
+        params[:amount] = amount
+        params[:currency] = currency
+        params[:payment_method_id] = payment_method_id
+
+        out = nil
+        post("/withdrawals/payment-method", params) do |resp|
+          out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
+      def coinbase_withdrawal(amount, currency, coinbase_account_id, params = {})
+        params[:amount] = amount
+        params[:currency] = currency
+        params[:coinbase_account_id] = coinbase_account_id
+
+        out = nil
+        post("/withdrawals/coinbase-account", params) do |resp|
+          out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
+      def crypto_withdrawal(amount, currency, crypto_address, params = {})
+        params[:amount] = amount
+        params[:currency] = currency
+        params[:crypto_address] = crypto_address
+
+        out = nil
+        post("/withdrawals/crypto", params) do |resp|
+          out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
+      #
+      # Payment Methods
+      #
+      def payment_methods(params = {})
+        out = nil
+        get("/payment-methods", params, paginate: true) do |resp|
+          out = response_collection(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+
+      #
+      # Coinbase Accounts
+      #
+      def coinbase_accounts(params = {})
+        out = nil
+        get("/coinbase-accounts", params, paginate: true) do |resp|
+          out = response_collection(resp)
           yield(out, resp) if block_given?
         end
         out
