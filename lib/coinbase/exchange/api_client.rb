@@ -293,9 +293,20 @@ module Coinbase
 
           if options[:paginate] && out.count == params[:limit]
             params[:after] = resp.headers['CB-AFTER']
-            get(path, params, options) do |pages|
-              out += pages
-              add_metadata(out)
+
+            # Stop fething whenever the :after cursor crosses
+            # the :before cursor (if present), which means that
+            # we already got everything we need. This is only applicable
+            # when the :before cursor is present. If not present,
+            # `params[:before].to_i` returns 0 and we will continue fetching
+            # everything until the very last page.
+            if (params[:after].to_i + 1) > params[:before].to_i
+              get(path, params, options) do |pages|
+                out += pages
+                add_metadata(out)
+                yield(out)
+              end
+            else
               yield(out)
             end
           else
