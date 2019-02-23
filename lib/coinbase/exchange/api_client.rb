@@ -160,6 +160,21 @@ module Coinbase
       end
       alias_method :buy, :bid
 
+      def bid_market(funds, params = {})
+        params[:product_id] ||= @default_product
+        params[:funds] = funds
+        params[:side] = "buy"
+        params[:type] = "market"
+        
+        out = nil
+        post("/orders", params) do |resp|
+          out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+      alias_method :buy_market, :bid_market
+
       def ask(amt, price, params = {})
         params[:product_id] ||= @default_product
         params[:size] = amt
@@ -174,6 +189,21 @@ module Coinbase
         out
       end
       alias_method :sell, :ask
+
+      def ask_market(size, params = {})
+        params[:product_id] ||= @default_product
+        params[:size] = size
+        params[:side] = "sell"
+        params[:type] = "market"
+
+        out = nil
+        post("/orders", params) do |resp|
+          out = response_object(resp)
+          yield(out, resp) if block_given?
+        end
+        out
+      end
+      alias_method :sell_market, :ask_market
 
       def cancel(id)
         out = nil
