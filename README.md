@@ -1,12 +1,12 @@
-# GDAX Ruby library
+# Coinbase Pro Ruby library
 
 __Note:__ This library isn't actively maintained.
-Please refer to the [Node.js client library](https://github.com/coinbase/gdax-node) for an up-to-date client implementation.
+Please refer to the [Node.js client library](https://github.com/coinbase/coinbase-pro-node) for an up-to-date client implementation.
 
 ## REST Client
 
 We provide an exchange client that is a thin wrapper over the exchange API.  The purpose of this Readme is to provide context for using the gem effectively.  For a detailed overview of the information that's available through the API, we recommend consulting the official documentation.
-* https://docs.gdax.com/#api
+* https://docs.pro.coinbase.com/#api
 
 We provide a synchronous and asynchronous client.  The only functional difference between the two clients is that the asynchronous client must be started inside the Eventmachine reactor loop.
 
@@ -51,7 +51,7 @@ $ gem install coinbase-exchange
 ### Initialization
 
 To initialize the client, simply pass in an API Key, API Secret, and API Passphrase which you generate on the web interface:
-* https://gdax.com/settings
+* https://pro.coinbase.com/settings
 
 ```ruby
 rest_api = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass)
@@ -63,7 +63,7 @@ rest_api = Coinbase::Exchange::AsyncClient.new(api_key, api_secret, api_pass)
 
 **Default Product**
 
-GDAX supports trading bitcoin in several currencies.  If you wish to trade a different currency, you can specify an alternative default currency.
+Coinbase Pro supports trading bitcoin in several currencies.  If you wish to trade a different currency, you can specify an alternative default currency.
 
 ```ruby
 gbp_client = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass,
@@ -76,7 +76,7 @@ You can initialize a connection to the sandbox by specifying an alternative api 
 
 ```ruby
 sandbox = Coinbase::Exchange::Client.new(api_key, api_secret, api_pass,
-                                          api_url: "https://api-public.sandbox.gdax.com")
+                                          api_url: "https://api-public.sandbox.pro.coinbase.com")
 ```
 
 ### Methods
@@ -149,7 +149,7 @@ end
 
 ## Endpoints
 
-### [Market Data] (https://docs.gdax.com/#market-data)
+### [Market Data] (https://docs.pro.coinbase.com/#market-data)
 
 Coinbase supports trading in multiple currencies.  When interacting with market data, you can get information about a product other than your default by setting the product_id parameter.
 
@@ -243,7 +243,7 @@ rest_api.daily_stats do |resp|
 end
 ```
 
-### [Accounts] (https://docs.gdax.com/#accounts)
+### [Accounts] (https://docs.pro.coinbase.com/#accounts)
 
 **accounts**
 
@@ -287,7 +287,7 @@ rest_api.account_holds(account_id) do |resp|
 end
 ```
 
-### [Orders] (https://docs.gdax.com/#orders)
+### [Orders] (https://docs.pro.coinbase.com/#orders)
 
 **bid**
 
@@ -369,7 +369,7 @@ rest_api.fills do |resp|
 end
 ```
 
-### [Transfers] (https://docs.gdax.com/#transfer-funds)
+### [Transfers] (https://docs.pro.coinbase.com/#transfer-funds)
 
 **deposit**
 
@@ -407,7 +407,7 @@ end
 
 We recommend reading the official websocket documentation before proceeding.
 
-* https://docs.gdax.com/#websocket-feed
+* https://docs.pro.coinbase.com/#websocket-feed
 
 We provide a websocket interface in the gem for convenience.  This is typically used to build a real-time orderbook, although it can also be used for simpler purposes such as tracking the market rate, or tracking when your orders fill.  Like the asynchronous client, this depends Eventmachine for asynchronous processing.
 
